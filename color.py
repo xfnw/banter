@@ -116,3 +116,12 @@ for i in EXTENDEDCOLORS:
 COLORS = colors
 
 
+def closestColor(rgb):
+    r, g, b = rgb
+    diss = {}
+    for cc in COLORS:
+        rc, gc, bc = COLORS[cc]
+        distance = abs(r-rc) + abs(g-gc) + abs(b-bc)
+        diss[cc] = distance
+    return min(diss, key=diss.get)
+
