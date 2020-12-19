@@ -1,4 +1,8 @@
-# Banter
-A fun and interesting script that makes very cool color art in IRC chat
+# banter
+little script to make irc color art that will probably get you banned
+
+![irc art of a fox with a santa hat](https://camo.githubusercontent.com/c561d6bb149035725e895178ce744f0c05ed6c55e8d71d8fe01dcce015c8025a/68747470733a2f2f74746d2e73682f646c792e706e67)
+
 # Notice
-In servers/channels that don't allow colors or spam you may get muted and banned. Its best to use this in YOUR channel.
+In servers/channels that don't allow colors or spam you may get muted and banned.
+Its best to use this in YOUR channel or a spam channel.
