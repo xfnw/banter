@@ -17,14 +17,14 @@ pixel_values = list(im.getdata())
 
 ipix = width // ASCIIWIDTH # // instead of / to devide with a round number
 
-asciiHeight = height // ipix
+asciiHeight = height // ipix // 2
 
 for y in range(asciiHeight):
     line = []
     lastColor=69420
 
     for x in range(ASCIIWIDTH):
-        color = closestColor(pixel_values[width*(y*ipix)+(x*ipix)])
+        color = closestColor(pixel_values[width*(y*(ipix*2))+(x*ipix)])
         if color == lastColor:
             colorcode = ''
         else:
