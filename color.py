@@ -117,7 +117,10 @@ COLORS = colors
 
 
 def closestColor(rgb):
-    r, g, b = rgb
+    try:
+        r, g, b = rgb
+    except ValueError:
+        r, g, b, a = rgb
     diss = {}
     for cc in COLORS:
         rc, gc, bc = COLORS[cc]
