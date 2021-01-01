@@ -4,41 +4,54 @@ __doc__ = 'little script to make irc color art that will probably get you banned
 # whee, look at this sus shebang workaround to always cause
 # unbuffered mode lol
 
-import sys,time
+import sys,time,argparse
 from PIL import Image
 from color import closestColor
 
-ASCIIWIDTH=80
-COLORCHAR='\x03{},{}' # this will be String.format()'ted with two args
-FILLER='.'
 
-if len(sys.argv) < 2:
-    raise Exception('you must supply an image')
+def main(imgPath,delay,ASCIIWIDTH,COLORCHAR,FILLER):
+    im = Image.open(imgPath, 'r')
+    width, height = im.size
+    pixel_values = list(im.getdata())
 
-im = Image.open(sys.argv[1], 'r')
-width, height = im.size
-pixel_values = list(im.getdata())
+    ipix = width // ASCIIWIDTH # // instead of / to devide with a round number
 
-ipix = width // ASCIIWIDTH # // instead of / to devide with a round number
+    asciiHeight = height // ipix // 2
 
-asciiHeight = height // ipix // 2
+    currentPixel = 0
 
-currentPixel = 0
+    for y in range(asciiHeight):
+        line = []
+        lastColor=69420
 
-for y in range(asciiHeight):
-    line = []
-    lastColor=69420
+        for x in range(ASCIIWIDTH):
+            color = closestColor(pixel_values[width*(y*(ipix*2))+(x*ipix)])
+            if color == lastColor:
+                colorcode = ''
+            else:
+                colorcode =COLORCHAR.format(color, color)
+            line.append(colorcode+(FILLER[currentPixel % len(FILLER)]))
+            lastColor=color
+            currentPixel+=1
 
-    for x in range(ASCIIWIDTH):
-        color = closestColor(pixel_values[width*(y*(ipix*2))+(x*ipix)])
-        if color == lastColor:
-            colorcode = ''
-        else:
-            colorcode =COLORCHAR.format(color, color)
-        line.append(colorcode+(FILLER[currentPixel % len(FILLER)]))
-        lastColor=color
-        currentPixel+=1
+        print(''.join(line))
+        if delay:
+            time.sleep(delay)
 
-    print(''.join(line))
-    if len(sys.argv) > 2:
-        time.sleep(float(sys.argv[2]))
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser("banter")
+    parser.add_argument("file")
+    parser.add_argument("-d",metavar='delay',default=0)
+    parser.add_argument("-w",metavar='width',default=80)
+    parser.add_argument("--colorfmt",metavar='format',default='\\x03{},{}')
+    parser.add_argument("--filler",metavar='filler',default='.')
+    args = parser.parse_args()
+
+    main(
+            args.file,
+            float(args.d),
+            int(args.w),
+            args.colorfmt.encode().decode('unicode_escape'),
+            args.filler.encode().decode('unicode_escape')
+            )
