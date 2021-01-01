@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+#!/bin/sh
+''''exec /usr/bin/env python3 -u "$0" $@ #'''
+
+__doc__ = 'little script to make irc color art that will probably get you banned'
 
 import sys,time
 from PIL import Image
