@@ -1,5 +1,5 @@
 #!/bin/sh
-''''exec /usr/bin/env python3 -u "$0" $@ #'''
+''''exec /usr/bin/env python3 -u "$0" "$@" #'''
 __doc__ = 'little script to make irc color art that will probably get you banned'
 # whee, look at this sus shebang workaround to always cause
 # unbuffered mode lol
