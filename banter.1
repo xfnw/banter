@@ -1,4 +1,4 @@
-.Dd December 25, 2020
+.Dd January 2, 2021
 .Dt banter 1
 .Os
 .
@@ -8,16 +8,60 @@
 .
 .Sh SYNOPSIS
 .Nm
-.Ar file
-.Op Ar delay
+.Op Fl d Ar delay
+.Op Fl w Ar width
+.Op Fl Fl colorfmt Ar format
+.Op Fl Fl filler Ar filler
+.Pa file
 .
 .Sh DESCRIPTION
 .Nm
 is a image to irc color codes converter.
+.
 .Pp
-note that if the color changes too rapidly and
-other factors like a long channel name and short
-line length may cause one line of pixels to continue
-to the next line, ruining the image
+note that
+.Nm
+does not check if the line is too long for irc, additional
+filtering may be needed if you do not want
+accidental wrapping.
 .
 .Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl d Ar delay
+set the
+.Ar delay
+in seconds between output lines. this does
+not factor in computation time.
+.
+.It Fl w Ar width
+the
+.Ar width
+of filler characters. the actual line will almost certainly
+be longer because of color codes.
+.
+.It Fl Fl colorfmt Ar format
+the unicode-escaped format of the colorcodes. you probably
+do not want to change it, the default of
+.Cm '\ex03{},{}'
+is usually fine for all irc-related use.
+.
+.It Fl Fl filler Ar filler
+what to fill the actual contents of the text with.
+you could use it to hide messages if you want.
+the default value is 
+.Cm '.' .
+.El
+.
+.Sh BUGS
+please report any bugs found to
+.Lk https://github.com/xfnw/banter/issues .
+.
+.Pp
+note that
+.Nm
+does not support non-rgb[a] color palettes, and an
+exception on other palettes like grayscale
+is to be expected and not a bug.
+.
+.Sh AUTHORS
+.An xfnw Aq Mt xfnw@riseup.net
