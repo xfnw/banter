@@ -5,27 +5,24 @@ __doc__ = 'little script to make irc color art that will probably get you banned
 # unbuffered mode lol
 
 import sys,time,argparse
-from PIL import Image
+from PIL import Image, ImageOps
 from color import closestColor
 
 
 def main(imgPath,delay,ASCIIWIDTH,COLORCHAR,FILLER):
     im = Image.open(imgPath, 'r')
+    im = ImageOps.scale(im, ASCIIWIDTH / im.width)
     width, height = im.size
     pixel_values = list(im.getdata())
 
-    ipix = width // ASCIIWIDTH # // instead of / to devide with a round number
-
-    asciiHeight = height // ipix // 2
-
     currentPixel = 0
 
-    for y in range(asciiHeight):
+    for y in range(0, height, 2):
         line = []
         lastColor=69420
 
-        for x in range(ASCIIWIDTH):
-            color = closestColor(pixel_values[width*(y*(ipix*2))+(x*ipix)])
+        for x in range(width):
+            color = closestColor(pixel_values[width*y+x])
             if color == lastColor:
                 colorcode = ''
             else:
