@@ -10,6 +10,7 @@
 .Nm
 .Op Fl d Ar delay
 .Op Fl w Ar width
+.Op Fl s Ar sharpness
 .Op Fl Fl colorfmt Ar format
 .Op Fl Fl filler Ar filler
 .Pa file
@@ -38,6 +39,14 @@ the
 .Ar width
 of filler characters. the actual line will almost certainly
 be longer because of color codes.
+.
+.It Fl s Ar sharpness
+doubles the pixels to make edges sharper, however uses
+exponentially more ram.
+.Ar sharpness
+is
+.Cm 4
+by default and can be lowered to reduce ram usage.
 .
 .It Fl Fl colorfmt Ar format
 the unicode-escaped format of the colorcodes. you probably
